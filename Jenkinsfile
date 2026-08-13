@@ -2,14 +2,19 @@ pipeline {
 
     agent any
 
+    tools {
+        maven 'Maven-3.9.16'
+    }
+
     stages {
 
         stage('Check Tools') {
-    steps {
-        bat 'java -version'
-        bat 'mvn -version'
-    }
-}
+            steps {
+                bat 'java -version'
+                bat 'mvn -version'
+                bat 'docker --version'
+            }
+        }
 
         stage('Maven Build') {
             steps {
