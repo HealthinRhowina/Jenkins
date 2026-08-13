@@ -5,12 +5,11 @@ pipeline {
     stages {
 
         stage('Check Tools') {
-            steps {
-                bat 'java -version'
-                bat 'mvn -version'
-                bat 'docker --version'
-            }
-        }
+    steps {
+        bat 'java -version'
+        bat 'mvn -version'
+    }
+}
 
         stage('Maven Build') {
             steps {
