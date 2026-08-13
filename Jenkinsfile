@@ -9,13 +9,14 @@ pipeline {
     stages {
 
         stage('Check Tools') {
-            steps {
-                bat 'java -version'
-                bat 'mvn -version'
-                bat 'docker --version'
-            }
-        }
-
+    steps {
+        bat 'java -version'
+        bat 'mvn -version'
+        bat 'where docker'
+        bat 'docker --version'
+        bat 'docker info'
+    }
+}
         stage('Maven Build') {
             steps {
                 bat 'mvn clean package'
