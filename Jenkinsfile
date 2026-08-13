@@ -2,6 +2,10 @@ pipeline {
 
     agent any
 
+    tools {
+        maven 'Maven-3.9.16'
+    }
+
     environment {
         DOCKER_PATH = 'C:\\Users\\hrhow\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin'
         PATH = "${DOCKER_PATH};${env.PATH}"
@@ -13,7 +17,6 @@ pipeline {
             steps {
                 bat 'java -version'
                 bat 'mvn -version'
-                bat 'where docker'
                 bat 'docker --version'
             }
         }
