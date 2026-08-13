@@ -4,9 +4,11 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
+        stage('Check Tools') {
             steps {
-                checkout scm
+                bat 'java -version'
+                bat 'mvn -version'
+                bat 'docker --version'
             }
         }
 
@@ -31,7 +33,7 @@ pipeline {
             }
         }
 
-        stage('Check Container') {
+        stage('Check Deployment') {
             steps {
                 bat 'docker ps'
                 bat 'docker logs myapp-container'
@@ -41,16 +43,12 @@ pipeline {
 
     post {
         success {
-            echo '======================================'
             echo 'DEPLOYMENT SUCCESSFUL'
             echo 'Application: http://localhost:8081'
-            echo '======================================'
         }
 
         failure {
-            echo '======================================'
             echo 'DEPLOYMENT FAILED'
-            echo '======================================'
         }
     }
 }
