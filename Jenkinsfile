@@ -2,21 +2,22 @@ pipeline {
 
     agent any
 
-    tools {
-        maven 'Maven-3.9.16'
+    environment {
+        DOCKER_PATH = 'C:\\Users\\hrhow\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin'
+        PATH = "${DOCKER_PATH};${env.PATH}"
     }
 
     stages {
 
         stage('Check Tools') {
-    steps {
-        bat 'java -version'
-        bat 'mvn -version'
-        bat 'where docker'
-        bat 'docker --version'
-        bat 'docker info'
-    }
-}
+            steps {
+                bat 'java -version'
+                bat 'mvn -version'
+                bat 'where docker'
+                bat 'docker --version'
+            }
+        }
+
         stage('Maven Build') {
             steps {
                 bat 'mvn clean package'
@@ -32,8 +33,8 @@ pipeline {
         stage('Docker Deploy') {
             steps {
                 bat '''
-                docker rm -f myapp-container 2>nul || exit /b 0
-                docker run -d --name myapp-container -p 8081:8080 myapp:1.0
+                    docker rm -f myapp-container 2>nul || exit /b 0
+                    docker run -d --name myapp-container -p 8081:8080 myapp:1.0
                 '''
             }
         }
